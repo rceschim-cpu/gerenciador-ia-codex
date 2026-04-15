@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(file /c/gerenciador_ia/*)",
+      "Bash(gh auth:*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git remote:*)",
+      "Bash(git branch:*)",
+      "Bash(git push:*)",
+      "Bash(node:*)",
+      "Bash(cat /c/gerenciador_ia/.github/workflows/*.yml)",
+      "Bash(gh run:*)"
+    ]
+  }
+}

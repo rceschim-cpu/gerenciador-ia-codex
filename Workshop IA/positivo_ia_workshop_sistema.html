@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Positivo TecnologIA — Programa de Adoção de IA</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --pb:#2C2A29;--pgd:#53565A;--pgl:#A7A8AA;--pc:#3CDBC0;
+  --font:'Montserrat',Arial,sans-serif;
+  --bg:#ffffff;--bg2:#f5f5f3;
+  --txt:#1a1a1a;--txt2:#53565A;
+  --bdr:rgba(0,0,0,0.1);--bdr2:rgba(0,0,0,0.18);
+  --radius-md:8px;--radius-lg:12px;
+}
+body{font-family:var(--font);background:#f0efeb;padding:24px;min-height:100vh;}
+.container{max-width:860px;margin:0 auto;}
+
+.pos-header{background:var(--pb);border-radius:12px;padding:20px 24px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;}
+.pos-logo{display:flex;align-items:center;gap:10px;}
+.pos-plus{font-size:22px;font-weight:800;color:var(--pc);text-shadow:0 0 12px var(--pc);}
+.pos-name{font-size:15px;font-weight:700;color:#fff;letter-spacing:.02em;}
+.pos-ia{background:var(--pc);color:var(--pb);padding:1px 5px;border-radius:3px;font-weight:800;font-size:13px;margin-left:1px;}
+.pos-badge{font-size:11px;font-weight:600;color:var(--pc);border:1px solid var(--pc);border-radius:20px;padding:3px 10px;opacity:.85;}
+
+.tab-bar{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap;}
+.tab{font-size:11px;font-weight:600;padding:6px 14px;border-radius:20px;border:1px solid var(--bdr2);cursor:pointer;color:var(--txt2);background:transparent;font-family:var(--font);letter-spacing:.03em;transition:all .15s;}
+.tab.active{background:var(--pb);color:#fff;border-color:var(--pb);}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+.sec-label{font-size:10px;font-weight:700;letter-spacing:.1em;color:var(--txt2);text-transform:uppercase;padding-bottom:8px;border-bottom:0.5px solid var(--bdr);margin-bottom:14px;}
+
+.block{background:var(--bg);border:0.5px solid var(--bdr);border-radius:10px;padding:14px 16px;margin-bottom:10px;}
+.block-top{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.btime{font-size:10px;font-weight:700;color:var(--txt2);min-width:54px;letter-spacing:.04em;}
+.btag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;}
+.btag-c{background:rgba(60,219,192,.15);color:#0a8a78;border:1px solid rgba(60,219,192,.4);}
+.btag-g{background:var(--bg2);color:var(--txt2);border:0.5px solid var(--bdr2);}
+.bname{font-size:13px;font-weight:600;color:var(--txt);}
+.bbody{font-size:12px;color:var(--txt2);line-height:1.7;}
+.bbody strong{font-weight:600;color:var(--txt);}
+
+.phase-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:14px;}
+.phase-card{background:var(--bg);border:0.5px solid var(--bdr);border-radius:10px;padding:13px;}
+.phase-tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;display:inline-block;margin-bottom:8px;letter-spacing:.03em;}
+.pt1{background:rgba(60,219,192,.12);color:#0a7a6a;border:1px solid rgba(60,219,192,.35);}
+.pt2{background:rgba(44,42,41,.08);color:var(--pgd);border:0.5px solid var(--bdr2);}
+.pt3{background:rgba(83,86,90,.1);color:var(--pgd);border:0.5px solid var(--bdr2);}
+.phase-title{font-size:13px;font-weight:700;color:var(--txt);margin-bottom:4px;}
+.phase-sub{font-size:11px;color:var(--txt2);margin-bottom:8px;}
+.phase-items{font-size:11px;color:var(--txt2);line-height:1.8;}
+
+.tool-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:14px;}
+.tool-card{background:var(--bg);border:0.5px solid var(--bdr);border-radius:10px;padding:12px;}
+.tool-head{font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;display:inline-block;margin-bottom:8px;letter-spacing:.03em;}
+.th-c{background:rgba(60,219,192,.12);color:#0a7a6a;border:1px solid rgba(60,219,192,.35);}
+.th-cs{background:rgba(44,42,41,.08);color:var(--pgd);border:0.5px solid var(--bdr2);}
+.th-n8n{background:rgba(83,86,90,.1);color:var(--pgd);border:0.5px solid var(--bdr2);}
+.tool-title{font-size:12px;font-weight:600;color:var(--txt);margin-bottom:4px;}
+.tool-sub{font-size:11px;color:var(--txt2);line-height:1.6;}
+
+.demo-row{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-bottom:0.5px solid var(--bdr);font-size:12px;}
+.demo-row:last-child{border-bottom:none;}
+.dlbl{color:var(--txt2);min-width:120px;flex-shrink:0;font-weight:500;}
+.dval{color:var(--txt);}
+
+.idea-form{background:var(--bg);border:0.5px solid var(--bdr);border-radius:10px;padding:16px;margin-bottom:14px;}
+.flbl{font-size:11px;font-weight:700;color:var(--txt2);letter-spacing:.05em;margin-bottom:4px;display:block;text-transform:uppercase;}
+.fgrp{margin-bottom:12px;}
+input[type=text],textarea,select{width:100%;font-size:13px;font-family:var(--font);padding:8px 10px;border:1px solid var(--bdr2);border-radius:8px;background:var(--bg);color:var(--txt);outline:none;}
+input[type=text]:focus,textarea:focus,select:focus{border-color:var(--pc);}
+textarea{height:60px;resize:vertical;}
+.tsel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:4px;}
+.tbtn{padding:9px 6px;border-radius:8px;border:1px solid var(--bdr2);cursor:pointer;font-size:11px;font-weight:600;font-family:var(--font);text-align:center;color:var(--txt2);background:transparent;transition:all .15s;letter-spacing:.03em;}
+.tbtn.sel-c{border-color:var(--pc);background:rgba(60,219,192,.12);color:#0a7a6a;}
+.tbtn.sel-s,.tbtn.sel-n{border-color:var(--pgd);background:rgba(83,86,90,.1);color:var(--pgd);}
+.pos-btn{background:var(--pb);color:#fff;border:none;border-radius:8px;padding:9px 18px;font-size:12px;font-weight:700;font-family:var(--font);cursor:pointer;letter-spacing:.04em;transition:opacity .15s;}
+.pos-btn:hover{opacity:.85;}
+
+.idea-card{background:var(--bg);border:0.5px solid var(--bdr);border-radius:10px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:flex-start;gap:12px;}
+.idea-card.top1{border-color:var(--pc);border-width:1.5px;}
+.idea-card.top2{border-color:var(--pgd);}
+.imeta{flex:1;}
+.ititle{font-size:13px;font-weight:700;color:var(--txt);margin-bottom:3px;}
+.idesc{font-size:11px;color:var(--txt2);margin-bottom:6px;line-height:1.6;}
+.ibadges{display:flex;gap:5px;flex-wrap:wrap;}
+.ibadge{font-size:10px;font-weight:600;padding:2px 7px;border-radius:8px;letter-spacing:.03em;}
+.ib-c{background:rgba(60,219,192,.12);color:#0a7a6a;border:1px solid rgba(60,219,192,.3);}
+.ib-s,.ib-n{background:rgba(83,86,90,.1);color:var(--pgd);border:0.5px solid var(--bdr2);}
+.ib-area{background:var(--bg2);color:var(--txt2);border:0.5px solid var(--bdr2);}
+.ib-alto{background:rgba(60,219,192,.12);color:#0a7a6a;border:1px solid rgba(60,219,192,.3);}
+.ib-medio,.ib-baixo{background:var(--bg2);color:var(--txt2);border:0.5px solid var(--bdr2);}
+
+.vcol{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:36px;}
+.vbtn{width:30px;height:30px;border-radius:50%;border:1px solid var(--bdr2);cursor:pointer;font-size:13px;background:transparent;color:var(--txt2);display:flex;align-items:center;justify-content:center;transition:all .15s;font-family:var(--font);}
+.vbtn:hover{background:var(--bg2);}
+.vbtn.voted{background:var(--pb);border-color:var(--pb);color:var(--pc);}
+.vcnt{font-size:12px;font-weight:700;color:var(--txt);}
+
+.stats-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:14px;}
+.stat{background:var(--bg2);border-radius:8px;padding:12px;}
+.slbl{font-size:10px;font-weight:700;color:var(--txt2);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px;}
+.sval{font-size:22px;font-weight:800;color:var(--txt);}
+
+.filter-bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
+.fbtn{font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;border:0.5px solid var(--bdr2);cursor:pointer;color:var(--txt2);background:transparent;font-family:var(--font);letter-spacing:.04em;}
+.fbtn.on{background:var(--pb);color:#fff;border-color:var(--pb);}
+
+.stack-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:6px;background:rgba(60,219,192,.12);color:#0a7a6a;border:1px solid rgba(60,219,192,.3);letter-spacing:.04em;}
+.empty{text-align:center;padding:2rem;color:var(--txt2);font-size:12px;font-weight:500;}
+
+.week-grid{display:grid;grid-template-columns:72px 1fr;gap:0;}
+.wlbl{font-size:10px;font-weight:700;color:var(--txt2);padding:10px 8px 10px 0;border-right:0.5px solid var(--bdr);display:flex;align-items:flex-start;letter-spacing:.04em;}
+.wcontent{padding:8px 0 8px 14px;border-bottom:0.5px solid var(--bdr);}
+.wcontent:last-child{border-bottom:none;}
+.witem{font-size:12px;font-weight:600;color:var(--txt);margin-bottom:2px;}
+.wdetail{font-size:11px;color:var(--txt2);}
+
+.msg-box{background:var(--pb);border-radius:10px;padding:14px 16px;margin-bottom:10px;}
+.msg-text{font-size:13px;font-weight:600;color:#fff;line-height:1.6;font-style:italic;}
+.msg-label{font-size:10px;font-weight:700;color:var(--pc);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;}
+.ia-box{display:inline-block;background:var(--pc);color:var(--pb);padding:0 4px;border-radius:3px;font-weight:800;font-size:.9em;}
+.saving-indicator{font-size:10px;color:var(--pc);font-weight:600;display:none;margin-left:8px;}
+.saving-indicator.show{display:inline;}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="pos-header">
+  <div class="pos-logo">
+    <span class="pos-plus">+</span>
+    <div>
+      <div class="pos-name">Positivo Tecnolog<span class="pos-ia">IA</span></div>
+      <div style="font-size:10px;color:var(--pgl);font-weight:500;margin-top:2px;letter-spacing:.05em;">PROGRAMA DE ADOÇÃO DE <span style="color:var(--pc);">IA</span></div>
+    </div>
+  </div>
+  <span class="pos-badge">VP DE NEGÓCIOS</span>
+</div>
+
+<div class="tab-bar">
+  <button class="tab active" onclick="st('plano')">Plano</button>
+  <button class="tab" onclick="st('roteiro')">Roteiro do workshop</button>
+  <button class="tab" onclick="st('demos')">Demos</button>
+  <button class="tab" onclick="st('ideias')">Banco de ideias</button>
+  <button class="tab" onclick="st('votacao')">Votação</button>
+  <button class="tab" onclick="st('stack')">Stack aprovado</button>
+</div>
+
+<!-- PLANO -->
+<div id="t-plano" class="tab-panel active">
+  <div class="sec-label">Visão geral — 3 fases</div>
+  <div class="phase-grid">
+    <div class="phase-card"><span class="phase-tag pt1">Fase 1 — Sem. 1-3</span><p class="phase-title">Escuta e mapeamento</p><p class="phase-sub">Rodadas por equipe · 30-45 min</p><p class="phase-items">· Mapear uso informal atual<br>· Identificar maturidade por área<br>· Levantar dores e oportunidades<br>· Cadastrar ideias no banco</p></div>
+    <div class="phase-card"><span class="phase-tag pt2">Fase 2 — Sem. 4-7</span><p class="phase-title">Workshop de iniciação</p><p class="phase-sub">Sessão 90-120 min por equipe</p><p class="phase-items">· Demo Claude gratuito ao vivo<br>· Brainstorm + votação de ideias<br>· Hands-on com prompt real<br>· Ferramenta por maturidade</p></div>
+    <div class="phase-card"><span class="phase-tag pt3">Fase 3 — Sem. 8-12</span><p class="phase-title">Cases e consolidação</p><p class="phase-sub">Acompanhamento + resultados</p><p class="phase-items">· Medir horas economizadas<br>· Construir cases com ROI<br>· Apresentar portfólio ao VP<br>· Justificar licenças pagas</p></div>
+  </div>
+  <div class="sec-label" style="margin-top:1.5rem;">Narrativa central</div>
+  <div class="msg-box"><div class="msg-label">Para equipes</div><div class="msg-text">"Vocês já usam <span class="ia-box" style="font-size:12px;">IA</span> informalmente — agora vamos estruturar isso. A empresa quer ver quem está usando o plano gratuito antes de liberar licença paga. Quem se destacar sai na frente."</div></div>
+  <div class="msg-box"><div class="msg-label">Para o VP</div><div class="msg-text">"Otimização de força de trabalho libera capacidade para fechar mais negócios. Reduzimos % de custo sobre receita sem mexer no headcount — ROI aparece no crescimento."</div></div>
+  <div class="sec-label" style="margin-top:1.5rem;">Cronograma</div>
+  <div class="block" style="padding:0 16px;">
+    <div class="week-grid">
+      <div class="wlbl">Sem 1</div><div class="wcontent"><div class="witem">Kick-off + alinhamento com VP</div><div class="wdetail">Valida narrativa, prioriza equipes, formaliza papel de Rafael</div></div>
+      <div class="wlbl">Sem 2-3</div><div class="wcontent"><div class="witem">Rodadas de escuta — 2-3 equipes/semana</div><div class="wdetail">30-45 min por área · mapear maturidade · cadastrar ideias</div></div>
+      <div class="wlbl">Sem 4-5</div><div class="wcontent"><div class="witem">Workshops — maturidade baixa (nível 1)</div><div class="wdetail">Foco em Claude.ai gratuito · prompts práticos · 1 caso eleito</div></div>
+      <div class="wlbl">Sem 6-7</div><div class="wcontent"><div class="witem">Workshops — maturidade média/alta (nível 2-3)</div><div class="wdetail">Copilot Studio (agentes) · Claude Code (ferramentas) · protótipo no dia</div></div>
+      <div class="wlbl">Sem 8</div><div class="wcontent"><div class="witem">Relatório de oportunidades para o VP</div><div class="wdetail">Mapa de iniciativas · priorização por ROI · recomendação de stack</div></div>
+      <div class="wlbl">Sem 9-11</div><div class="wcontent"><div class="witem">Acompanhamento de adoção e primeiros resultados</div><div class="wdetail">Check-in 30 min por área · coleta de dados para cases</div></div>
+      <div class="wlbl">Sem 12</div><div class="wcontent" style="border:none"><div class="witem">Apresentação ao VP: portfólio de cases com ROI</div><div class="wdetail">Primeira rodada de evidências · proposta de licenças pagas</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ROTEIRO -->
+<div id="t-roteiro" class="tab-panel">
+  <div class="sec-label">Estrutura do workshop — 90 a 120 min</div>
+  <div class="block"><div class="block-top"><span class="btime">0–15 min</span><span class="btag btag-c">Bloco 1</span><span class="bname">Contexto: o que é e o que não é <span class="ia-box" style="font-size:11px">IA</span></span></div><div class="bbody">Diferenciar uso informal (ChatGPT pessoal) do Claude corporativo. Posicionar IA como amplificação, não substituição. <strong>Ponto-chave:</strong> "Vocês já usam isso — agora com estratégia."</div></div>
+  <div class="block"><div class="block-top"><span class="btime">15–40 min</span><span class="btag btag-c">Bloco 2</span><span class="bname">Demo ao vivo — Claude gratuito</span></div><div class="bbody">Casos do dia a dia da área visitada. Mostrar Claude.ai, mencionar Claude Code para perfis técnicos. <strong>Gancho:</strong> "A empresa libera licença paga para quem estiver efetivamente usando o gratuito."</div></div>
+  <div class="block"><div class="block-top"><span class="btime">40–65 min</span><span class="btag btag-c">Bloco 3</span><span class="bname">Brainstorm estruturado</span></div><div class="bbody">3 perguntas gatilho: (1) Qual tarefa repetitiva mais te toma tempo? (2) Onde existe mais retrabalho? (3) Se pudesse automatizar uma coisa, qual seria? Cada ideia cadastrada no banco em tempo real.</div></div>
+  <div class="block"><div class="block-top"><span class="btime">65–85 min</span><span class="btag btag-c">Bloco 4</span><span class="bname">Votação ao vivo</span></div><div class="bbody">Participantes votam nas ideias mais impactantes. Rafael faz triagem: <strong>Claude</strong> (ferramentas, calculadoras, apps) vs <strong>Copilot Studio</strong> (agentes Q&A). Resultado: 1-2 ideias eleitas.</div></div>
+  <div class="block"><div class="block-top"><span class="btime">85–105 min</span><span class="btag btag-c">Bloco 5</span><span class="bname">Hands-on — primeiro prompt real</span></div><div class="bbody">Todos abrem o Claude.ai e testam com uma tarefa real. Ninguém sai sem ter usado. Perfis técnicos recebem orientação sobre Claude Code.</div></div>
+  <div class="block"><div class="block-top"><span class="btime">105–120 min</span><span class="btag btag-g">Encerramento</span><span class="bname">Combinados e próximos passos</span></div><div class="bbody">Definir responsável por cada ideia eleita. Combinar check-in de 30 dias. Reforçar o banco de ideias para cadastros posteriores.</div></div>
+</div>
+
+<!-- DEMOS -->
+<div id="t-demos" class="tab-panel">
+  <div class="sec-label">Demos por ferramenta e audiência</div>
+  <div class="tool-grid">
+    <div class="tool-card"><span class="tool-head th-c">Claude — plano gratuito</span><p class="tool-title">Qualquer equipe · nível 1</p><p class="tool-sub" style="margin-bottom:10px">Modelo: claude-sonnet-4.6</p>
+      <div class="demo-row"><span class="dlbl">E-mail longo</span><span class="dval">Resumo + ação recomendada em segundos</span></div>
+      <div class="demo-row"><span class="dlbl">Draft de proposta</span><span class="dval">Rascunho a partir de bullet points</span></div>
+      <div class="demo-row"><span class="dlbl">Dados bagunçados</span><span class="dval">Formatação + análise de tabela colada</span></div>
+      <div class="demo-row"><span class="dlbl">Roteiro de reunião</span><span class="dval">Pauta estruturada de tópicos soltos</span></div>
+      <div class="demo-row"><span class="dlbl">Calculadora HTML</span><span class="dval">Ferramenta funcional gerada ao vivo</span></div>
+    </div>
+    <div class="tool-card"><span class="tool-head th-cs">Copilot Studio</span><p class="tool-title">Maturidade intermediária · nível 2</p><p class="tool-sub" style="margin-bottom:10px">Foco: agentes de processo</p>
+      <div class="demo-row"><span class="dlbl">Agente de Q&A</span><span class="dval">PDF de processo consultado via chat</span></div>
+      <div class="demo-row"><span class="dlbl">Tributônio</span><span class="dval">Case real da Positivo — agente tributário</span></div>
+      <div class="demo-row"><span class="dlbl">Bot de onboarding</span><span class="dval">Dúvidas de novos colaboradores</span></div>
+      <div class="demo-row"><span class="dlbl">Consulta a planilhas</span><span class="dval">WhatsApp → OneDrive via n8n</span></div>
+    </div>
+    <div class="tool-card"><span class="tool-head th-n8n">Claude Code + n8n</span><p class="tool-title">Perfis técnicos · nível 3</p><p class="tool-sub" style="margin-bottom:10px">Stack: Claude API + n8n + GitLab</p>
+      <div class="demo-row"><span class="dlbl">Calculadora React</span><span class="dval">App de pricing em minutos</span></div>
+      <div class="demo-row"><span class="dlbl">Automação n8n</span><span class="dval">Mensagem → dado → planilha → notificação</span></div>
+      <div class="demo-row"><span class="dlbl">Dashboard React</span><span class="dval">App de acompanhamento de metas</span></div>
+      <div class="demo-row"><span class="dlbl">Controle FOB</span><span class="dval">Case real: WhatsApp → Excel via Graph API</span></div>
+    </div>
+  </div>
+  <div class="block" style="margin-top:4px">
+    <div class="block-top"><span class="stack-badge">STACK POSITIVO</span><span class="bname" style="margin-left:6px;font-size:12px;">Regra de triagem durante votação</span></div>
+    <div class="bbody"><strong>Claude</strong> → ferramentas, calculadoras, integrações, aplicativos.<br><strong>Copilot Studio</strong> → agentes de Q&A, bots de processo, consultas a bases de conhecimento.<br><strong>n8n + Claude API</strong> → fluxos end-to-end com múltiplos sistemas.<br>Deploy: <strong>GitLab → ArgoCD → KUBIA</strong> (nunca deploy manual).</div>
+  </div>
+</div>
+
+<!-- BANCO DE IDEIAS -->
+<div id="t-ideias" class="tab-panel">
+  <div class="sec-label">Cadastro de ideias <span id="saving-msg" class="saving-indicator">salvando...</span></div>
+  <div class="idea-form">
+    <div class="fgrp"><label class="flbl">Título da ideia</label><input type="text" id="i-title" placeholder="Ex: Resumo automático de atas de reunião"></div>
+    <div class="fgrp"><label class="flbl">Problema / oportunidade</label><textarea id="i-desc" placeholder="Qual processo é manual hoje? Onde está o retrabalho?"></textarea></div>
+    <div class="fgrp"><label class="flbl">Área</label><input type="text" id="i-area" placeholder="Ex: Comercial, Pricing, Procurement..."></div>
+    <div class="fgrp"><label class="flbl">Ferramenta sugerida</label>
+      <div class="tsel">
+        <button class="tbtn" id="tb-c" onclick="selTool('c')">Claude</button>
+        <button class="tbtn" id="tb-s" onclick="selTool('s')">Copilot Studio</button>
+        <button class="tbtn" id="tb-n" onclick="selTool('n')">n8n + API</button>
+      </div>
+    </div>
+    <div class="fgrp"><label class="flbl">Impacto estimado</label>
+      <select id="i-impact">
+        <option value="">Selecione...</option>
+        <option value="alto">Alto — elimina horas/semana de trabalho manual</option>
+        <option value="medio">Médio — reduz retrabalho ou acelera processo</option>
+        <option value="baixo">Baixo — melhoria incremental</option>
+      </select>
+    </div>
+    <button class="pos-btn" onclick="addIdea()">Cadastrar ideia</button>
+  </div>
+  <div id="ideas-list"><div class="empty">Nenhuma ideia cadastrada ainda.</div></div>
+</div>
+
+<!-- VOTAÇÃO -->
+<div id="t-votacao" class="tab-panel">
+  <div class="sec-label">Ranking de ideias — votação ao vivo</div>
+  <div class="stats-row">
+    <div class="stat"><div class="slbl">Ideias</div><div class="sval" id="st-total">0</div></div>
+    <div class="stat"><div class="slbl">Votos</div><div class="sval" id="st-votes">0</div></div>
+    <div class="stat"><div class="slbl">Áreas</div><div class="sval" id="st-areas">0</div></div>
+  </div>
+  <div class="filter-bar">
+    <button class="fbtn on" onclick="fv('all',this)">Todas</button>
+    <button class="fbtn" onclick="fv('c',this)">Claude</button>
+    <button class="fbtn" onclick="fv('s',this)">Copilot Studio</button>
+    <button class="fbtn" onclick="fv('n',this)">n8n + API</button>
+    <button class="fbtn" onclick="fv('alto',this)">Alto impacto</button>
+  </div>
+  <div id="vote-list"><div class="empty">Cadastre ideias para votar aqui.</div></div>
+</div>
+
+<!-- STACK -->
+<div id="t-stack" class="tab-panel">
+  <div class="sec-label">Stack aprovado — Positivo Tecnolog<span class="ia-box" style="font-size:10px">IA</span></div>
+  <div class="block" style="margin-bottom:10px;"><div class="block-top"><span class="stack-badge">PROTOTIPAGEM</span></div><div class="bbody"><strong>Claude Team (claude.ai)</strong> — ponto de partida obrigatório para qualquer nova iniciativa. Prototipe aqui antes de evoluir para produção.</div></div>
+  <div class="block" style="margin-bottom:10px;"><div class="block-top"><span class="stack-badge">LLM PRIMÁRIO</span></div><div class="bbody"><strong>claude-sonnet-4.6</strong> — tarefas padrão / custo-benefício.<br><strong>claude-opus-4.6</strong> — tarefas cognitivas complexas.<br><strong>LiteLLM Router → GPT-4o (Azure)</strong> — fallback automático.</div></div>
+  <div class="block" style="margin-bottom:10px;"><div class="block-top"><span class="stack-badge">AGENTES & FLUXOS</span></div><div class="bbody"><strong>LangGraph</strong> — agente único com estado/memória complexa.<br><strong>CrewAI</strong> — múltiplos agentes colaborativos com papéis definidos.<br><strong>n8n</strong> — orquestração de fluxos, webhooks, ETL, triggers.</div></div>
+  <div class="block" style="margin-bottom:10px;"><div class="block-top"><span class="stack-badge">DADOS & MEMÓRIA</span></div><div class="bbody"><strong>Qdrant</strong> — RAG alta frequência / missão crítica.<br><strong>pgvector</strong> — RAG complementar (integrado ao PostgreSQL).<br><strong>Redis</strong> — cache semântico (reduz 35-40% chamadas LLM).</div></div>
+  <div class="block" style="margin-bottom:10px;"><div class="block-top"><span class="stack-badge">CI/CD & DEPLOY</span></div><div class="bbody"><strong>GitLab</strong> → pipeline automático (test → scan → eval → build → deploy).<br><strong>ArgoCD → KUBIA</strong> — deploy GitOps no cluster on-premise.<br><strong>GMUD via Zeev + GLPI</strong> — aprovação obrigatória para produção.</div></div>
+  <div class="block"><div class="block-top"><span class="stack-badge">OBSERVABILIDADE</span></div><div class="bbody"><strong>Langfuse</strong> — FinOps de tokens por projeto/agente/modelo.<br><strong>OpenTelemetry</strong> — tracing obrigatório em todos os agentes.<br><strong>Prometheus + Grafana</strong> — métricas operacionais.<br><strong>Loki</strong> — logs estruturados.</div></div>
+</div>
+
+<script>
+var ideas=[];
+var selTl='';
+var vfilter='all';
+var STORAGE_KEY='positivo_ia_ideas_v1';
+
+function loadIdeas(){
+  try{var d=localStorage.getItem(STORAGE_KEY);if(d){ideas=JSON.parse(d);renderIdeas();renderVotes();updateStats();}}catch(e){ideas=[];}
+}
+
+function saveIdeas(){
+  var msg=document.getElementById('saving-msg');
+  msg.classList.add('show');
+  try{localStorage.setItem(STORAGE_KEY,JSON.stringify(ideas));}catch(e){}
+  setTimeout(()=>msg.classList.remove('show'),1200);
+}
+
+function st(id){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('t-'+id).classList.add('active');
+  event.target.classList.add('active');
+  if(id==='votacao')renderVotes();
+}
+
+function selTool(t){
+  selTl=t;
+  ['c','s','n'].forEach(x=>{document.getElementById('tb-'+x).className='tbtn';});
+  document.getElementById('tb-'+t).classList.add('sel-'+t);
+}
+
+function toolLabel(t){return{c:'Claude',s:'Copilot Studio',n:'n8n + API'}[t]||'';}
+function toolClass(t){return{c:'ib-c',s:'ib-s',n:'ib-n'}[t]||'ib-area';}
+
+function addIdea(){
+  var title=document.getElementById('i-title').value.trim();
+  var desc=document.getElementById('i-desc').value.trim();
+  var area=document.getElementById('i-area').value.trim();
+  var impact=document.getElementById('i-impact').value;
+  if(!title){alert('Preencha o título da ideia.');return;}
+  ideas.push({id:Date.now(),title,desc,area,tool:selTl,impact,votes:0,voted:false});
+  document.getElementById('i-title').value='';
+  document.getElementById('i-desc').value='';
+  document.getElementById('i-area').value='';
+  document.getElementById('i-impact').value='';
+  selTl='';
+  ['c','s','n'].forEach(x=>document.getElementById('tb-'+x).className='tbtn');
+  saveIdeas();renderIdeas();updateStats();
+}
+
+function renderIdeas(){
+  var el=document.getElementById('ideas-list');
+  if(!ideas.length){el.innerHTML='<div class="empty">Nenhuma ideia cadastrada ainda.</div>';return;}
+  el.innerHTML=[...ideas].reverse().map(idea=>`
+    <div class="idea-card">
+      <div class="imeta">
+        <div class="ititle">${idea.title}</div>
+        ${idea.desc?'<div class="idesc">'+idea.desc+'</div>':''}
+        <div class="ibadges">
+          ${idea.area?'<span class="ibadge ib-area">'+idea.area+'</span>':''}
+          ${idea.tool?'<span class="ibadge '+toolClass(idea.tool)+'">'+toolLabel(idea.tool)+'</span>':''}
+          ${idea.impact?'<span class="ibadge ib-'+idea.impact+'">'+{alto:'Alto impacto',medio:'Médio impacto',baixo:'Baixo impacto'}[idea.impact]+'</span>':''}
+        </div>
+      </div>
+      <div class="vcol"><span class="vcnt">${idea.votes}</span><span style="font-size:10px;color:var(--txt2);">votos</span></div>
+    </div>`).join('');
+}
+
+function renderVotes(){
+  var filtered=vfilter==='all'?ideas:ideas.filter(i=>i.tool===vfilter||i.impact===vfilter);
+  var sorted=[...filtered].sort((a,b)=>b.votes-a.votes);
+  var el=document.getElementById('vote-list');
+  if(!sorted.length){el.innerHTML='<div class="empty">Nenhuma ideia encontrada para este filtro.</div>';return;}
+  el.innerHTML=sorted.map((idea,idx)=>`
+    <div class="idea-card ${idx===0?'top1':idx===1?'top2':''}">
+      <div style="font-size:16px;font-weight:800;color:${idx===0?'var(--pc)':'var(--txt2)'};min-width:20px;text-align:center;margin-top:2px;">${idx+1}</div>
+      <div class="imeta">
+        <div class="ititle">${idea.title}</div>
+        ${idea.desc?'<div class="idesc">'+idea.desc+'</div>':''}
+        <div class="ibadges">
+          ${idea.area?'<span class="ibadge ib-area">'+idea.area+'</span>':''}
+          ${idea.tool?'<span class="ibadge '+toolClass(idea.tool)+'">'+toolLabel(idea.tool)+'</span>':''}
+          ${idea.impact?'<span class="ibadge ib-'+idea.impact+'">'+{alto:'Alto impacto',medio:'Médio impacto',baixo:'Baixo impacto'}[idea.impact]+'</span>':''}
+        </div>
+      </div>
+      <div class="vcol">
+        <button class="vbtn ${idea.voted?'voted':''}" onclick="vote(${idea.id})">▲</button>
+        <span class="vcnt">${idea.votes}</span>
+      </div>
+    </div>`).join('');
+  updateStats();
+}
+
+function vote(id){
+  var idea=ideas.find(i=>i.id===id);
+  if(!idea)return;
+  if(idea.voted){idea.votes--;idea.voted=false;}else{idea.votes++;idea.voted=true;}
+  saveIdeas();renderVotes();renderIdeas();
+}
+
+function fv(f,btn){
+  vfilter=f;
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderVotes();
+}
+
+function updateStats(){
+  document.getElementById('st-total').textContent=ideas.length;
+  document.getElementById('st-votes').textContent=ideas.reduce((s,i)=>s+i.votes,0);
+  var areas=new Set(ideas.map(i=>i.area).filter(Boolean));
+  document.getElementById('st-areas').textContent=areas.size;
+}
+
+loadIdeas();
+</script>
+</div>
+</body>
+</html>
