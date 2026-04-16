@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workshop IA — Positivo TecnologIA</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --pb:#2C2A29;--pgd:#53565A;--pgl:#A7A8AA;--pc:#3CDBC0;
+  --font:'Montserrat',Arial,sans-serif;
+}
+html,body{width:100%;height:100%;overflow:hidden;background:#111;font-family:var(--font);}
+
+.deck{width:100%;height:100%;position:relative;}
+.slide{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  opacity:0;pointer-events:none;
+  transition:opacity .4s ease;
+}
+.slide.active{opacity:1;pointer-events:all;}
+
+/* NAV */
+.nav{
+  position:absolute;bottom:28px;left:0;right:0;
+  display:flex;align-items:center;justify-content:center;gap:16px;
+  z-index:100;
+}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.25);cursor:pointer;transition:all .2s;}
+.nav-dot.on{background:var(--pc);transform:scale(1.3);}
+.nav-btn{
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);
+  color:#fff;font-family:var(--font);font-size:12px;font-weight:600;
+  padding:6px 16px;border-radius:20px;cursor:pointer;letter-spacing:.05em;
+  transition:all .15s;
+}
+.nav-btn:hover{background:rgba(255,255,255,.15);}
+.slide-counter{font-size:11px;font-weight:600;color:rgba(255,255,255,.35);letter-spacing:.08em;min-width:40px;text-align:center;}
+
+/* LOGO STRIP */
+.logo-strip{display:flex;align-items:center;gap:8px;padding:20px 32px;}
+.logo-plus{font-size:20px;font-weight:800;color:var(--pc);text-shadow:0 0 14px var(--pc);}
+.logo-name{font-size:13px;font-weight:700;color:rgba(255,255,255,.9);letter-spacing:.03em;}
+.logo-ia{background:var(--pc);color:var(--pb);padding:1px 4px;border-radius:3px;font-weight:800;font-size:12px;}
+.slide-tag{margin-left:auto;font-size:10px;font-weight:700;color:var(--pc);border:1px solid rgba(60,219,192,.4);border-radius:12px;padding:3px 10px;letter-spacing:.06em;}
+
+/* IA BOX */
+.ia{display:inline-block;background:var(--pc);color:var(--pb);padding:1px 5px;border-radius:3px;font-weight:800;}
+
+/* L-FRAME */
+.lf{display:inline-flex;border-top:3px solid var(--pc);border-left:3px solid var(--pc);padding:6px 0 0 8px;}
+
+/* ========================
+   SLIDE 1 — CAPA
+======================== */
+#s1{background:var(--pb);}
+#s1 .body{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:20px 40px 60px;text-align:center;
+}
+#s1 .eyebrow{font-size:11px;font-weight:700;color:var(--pc);letter-spacing:.14em;text-transform:uppercase;margin-bottom:20px;}
+#s1 h1{font-size:52px;font-weight:800;color:#fff;line-height:1.1;margin-bottom:16px;}
+#s1 .sub{font-size:16px;font-weight:500;color:var(--pgl);max-width:520px;line-height:1.6;}
+#s1 .presenter{margin-top:36px;font-size:13px;font-weight:600;color:rgba(255,255,255,.5);}
+#s1 .presenter span{color:rgba(255,255,255,.85);}
+.capa-line{width:60px;height:3px;background:var(--pc);border-radius:2px;margin:0 auto 24px;}
+
+/* ========================
+   SLIDE 2 — AGENDA
+======================== */
+#s2{background:#1e1c1b;}
+#s2 .body{flex:1;display:flex;flex-direction:column;padding:0 48px 60px;}
+#s2 h2{font-size:32px;font-weight:800;color:#fff;margin-bottom:28px;}
+.agenda-steps{display:flex;flex-direction:column;gap:12px;}
+.astep{
+  display:flex;align-items:center;gap:16px;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
+  border-radius:10px;padding:14px 18px;
+  transition:background .2s;
+}
+.astep.hl{background:rgba(60,219,192,.08);border-color:rgba(60,219,192,.25);}
+.atime{font-size:11px;font-weight:700;color:var(--pc);min-width:60px;letter-spacing:.04em;}
+.anum{width:26px;height:26px;border-radius:50%;background:var(--pc);color:var(--pb);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.atitle{font-size:14px;font-weight:700;color:#fff;}
+.adesc{font-size:11px;color:var(--pgl);margin-top:2px;}
+
+/* ========================
+   SLIDE 3 — O QUE É IA
+======================== */
+#s3{background:var(--pb);}
+#s3 .body{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:0 48px 60px;align-items:center;}
+#s3 .left h2{font-size:36px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:16px;}
+#s3 .left p{font-size:14px;color:var(--pgl);line-height:1.7;}
+.vs-grid{display:flex;flex-direction:column;gap:10px;}
+.vs-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:14px 16px;}
+.vs-card.good{border-color:rgba(60,219,192,.35);background:rgba(60,219,192,.06);}
+.vs-label{font-size:10px;font-weight:700;letter-spacing:.1em;margin-bottom:6px;}
+.vs-label.bad{color:var(--pgl);}
+.vs-label.good{color:var(--pc);}
+.vs-text{font-size:13px;font-weight:500;color:#fff;line-height:1.5;}
+
+/* ========================
+   SLIDE 4 — NÃO É MAGIA
+======================== */
+#s4{background:#1e1c1b;}
+#s4 .body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 48px 60px;text-align:center;}
+#s4 h2{font-size:36px;font-weight:800;color:#fff;margin-bottom:12px;}
+#s4 .tagline{font-size:18px;font-weight:600;color:var(--pc);margin-bottom:36px;}
+.pill-row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:36px;}
+.pill{font-size:13px;font-weight:600;padding:8px 18px;border-radius:20px;}
+.pill-yes{background:rgba(60,219,192,.15);color:var(--pc);border:1px solid rgba(60,219,192,.35);}
+.pill-no{background:rgba(255,255,255,.06);color:var(--pgl);border:1px solid rgba(255,255,255,.1);text-decoration:line-through;opacity:.6;}
+.bigquote{font-size:20px;font-weight:700;color:#fff;max-width:640px;line-height:1.5;font-style:italic;}
+.bigquote .hl{color:var(--pc);}
+
+/* ========================
+   SLIDE 5 — VOCÊS JÁ USAM
+======================== */
+#s5{background:var(--pb);}
+#s5 .body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 48px 60px;text-align:center;}
+#s5 h2{font-size:38px;font-weight:800;color:#fff;margin-bottom:10px;}
+#s5 .sub{font-size:16px;color:var(--pgl);margin-bottom:36px;}
+.tools-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:36px;}
+.tool-pill{font-size:13px;font-weight:700;padding:10px 22px;border-radius:24px;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.7);background:rgba(255,255,255,.05);}
+.tool-pill.main{background:rgba(60,219,192,.12);border-color:rgba(60,219,192,.4);color:var(--pc);}
+.arrow-row{font-size:28px;color:var(--pc);margin-bottom:20px;}
+.upgrade-box{background:rgba(60,219,192,.1);border:1px solid rgba(60,219,192,.3);border-radius:12px;padding:18px 32px;max-width:560px;}
+.upgrade-box p{font-size:15px;font-weight:600;color:#fff;line-height:1.6;}
+
+/* ========================
+   SLIDE 6 — LICENÇA GRATUITA
+======================== */
+#s6{background:#1a1918;}
+#s6 .body{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:32px;padding:0 48px 60px;align-items:center;}
+#s6 .left h2{font-size:34px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:16px;}
+#s6 .left p{font-size:14px;color:var(--pgl);line-height:1.7;margin-bottom:20px;}
+.free-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:20px;}
+.free-title{font-size:13px;font-weight:700;color:var(--pc);letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px;}
+.free-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;}
+.free-dot{width:6px;height:6px;border-radius:50%;background:var(--pc);margin-top:5px;flex-shrink:0;}
+.free-text{font-size:13px;color:rgba(255,255,255,.8);line-height:1.5;}
+.paid-box{background:rgba(60,219,192,.08);border:2px solid rgba(60,219,192,.3);border-radius:12px;padding:20px;margin-top:12px;}
+.paid-title{font-size:12px;font-weight:700;color:var(--pc);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;}
+.paid-text{font-size:13px;font-weight:600;color:#fff;line-height:1.6;}
+
+/* ========================
+   SLIDE 7 — DEMO LIVE
+======================== */
+#s7{background:var(--pb);}
+#s7 .body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 48px 60px;}
+#s7 h2{font-size:36px;font-weight:800;color:#fff;margin-bottom:8px;text-align:center;}
+#s7 .sub{font-size:15px;color:var(--pgl);margin-bottom:32px;text-align:center;}
+.demo-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;width:100%;}
+.demo-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:16px;}
+.demo-card h3{font-size:13px;font-weight:700;color:var(--pc);margin-bottom:10px;letter-spacing:.04em;}
+.demo-item{font-size:12px;color:rgba(255,255,255,.7);padding:4px 0;border-bottom:1px solid rgba(255,255,255,.06);line-height:1.5;}
+.demo-item:last-child{border-bottom:none;}
+
+/* ========================
+   SLIDE 8 — BRAINSTORM
+======================== */
+#s8{background:#1e1c1b;}
+#s8 .body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 48px 60px;text-align:center;}
+#s8 h2{font-size:36px;font-weight:800;color:#fff;margin-bottom:8px;}
+#s8 .sub{font-size:15px;color:var(--pgl);margin-bottom:36px;}
+.qs-stack{display:flex;flex-direction:column;gap:14px;width:100%;max-width:640px;}
+.q-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:18px 22px;display:flex;align-items:center;gap:16px;text-align:left;}
+.q-num{width:36px;height:36px;border-radius:50%;background:var(--pc);color:var(--pb);font-size:16px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.q-text{font-size:15px;font-weight:600;color:#fff;line-height:1.5;}
+
+/* ========================
+   SLIDE 9 — VOTAÇÃO
+======================== */
+#s9{background:var(--pb);}
+#s9 .body{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:32px;padding:0 48px 60px;align-items:center;}
+#s9 .left h2{font-size:34px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:16px;}
+#s9 .left p{font-size:14px;color:var(--pgl);line-height:1.7;}
+.vote-steps{display:flex;flex-direction:column;gap:12px;}
+.vstep{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:10px;padding:14px 16px;display:flex;gap:14px;align-items:flex-start;}
+.vnum{width:28px;height:28px;border-radius:50%;background:var(--pc);color:var(--pb);font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.vtitle{font-size:13px;font-weight:700;color:#fff;margin-bottom:3px;}
+.vdesc{font-size:11px;color:var(--pgl);line-height:1.5;}
+
+/* ========================
+   SLIDE 10 — HANDS-ON
+======================== */
+#s10{background:#1e1c1b;}
+#s10 .body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 48px 60px;text-align:center;}
+#s10 h2{font-size:38px;font-weight:800;color:#fff;margin-bottom:10px;}
+#s10 .sub{font-size:16px;color:var(--pgl);margin-bottom:36px;max-width:560px;}
+.ho-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+.ho-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:16px 20px;min-width:160px;}
+.ho-label{font-size:10px;font-weight:700;color:var(--pc);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;}
+.ho-text{font-size:13px;font-weight:600;color:#fff;line-height:1.5;}
+
+/* ========================
+   SLIDE 11 — PRÓXIMOS PASSOS
+======================== */
+#s11{background:var(--pb);}
+#s11 .body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 48px 60px;text-align:center;}
+#s11 h2{font-size:36px;font-weight:800;color:#fff;margin-bottom:8px;}
+#s11 .sub{font-size:15px;color:var(--pgl);margin-bottom:36px;}
+.ps-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;width:100%;}
+.ps-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:18px;}
+.ps-step{font-size:10px;font-weight:700;color:var(--pc);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;}
+.ps-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:6px;}
+.ps-desc{font-size:12px;color:var(--pgl);line-height:1.6;}
+
+/* ========================
+   SLIDE 12 — ENCERRAMENTO
+======================== */
+#s12{background:var(--pb);}
+#s12 .body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 40px 60px;text-align:center;}
+#s12 .eyebrow{font-size:11px;font-weight:700;color:var(--pc);letter-spacing:.14em;text-transform:uppercase;margin-bottom:20px;}
+#s12 h1{font-size:48px;font-weight:800;color:#fff;line-height:1.1;margin-bottom:16px;}
+#s12 .sub{font-size:16px;color:var(--pgl);max-width:500px;line-height:1.6;margin-bottom:36px;}
+.close-line{width:60px;height:3px;background:var(--pc);border-radius:2px;margin:0 auto 24px;}
+.contact-row{font-size:13px;font-weight:600;color:rgba(255,255,255,.45);}
+.contact-row span{color:rgba(255,255,255,.8);}
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+<!-- ===== SLIDE 1: CAPA ===== -->
+<div class="slide active" id="s1">
+  <div class="logo-strip">
+    <span class="logo-plus">+</span>
+    <span class="logo-name">Positivo Tecnolog<span class="logo-ia">IA</span></span>
+    <span class="slide-tag">VP DE NEGÓCIOS</span>
+  </div>
+  <div class="body">
+    <div class="eyebrow">Workshop de Iniciação</div>
+    <div class="capa-line"></div>
+    <h1>Trabalhar com <span class="ia" style="font-size:52px;">IA</span><br>na prática</h1>
+    <p class="sub">Como usar inteligência artificial para ampliar sua capacidade e entregar mais resultados — a partir de hoje.</p>
+    <p class="presenter">Apresentado por <span>Rafael Ceschim</span> · Coordenador de Implementações IA</p>
+  </div>
+</div>
+
+<!-- ===== SLIDE 2: AGENDA ===== -->
+<div class="slide" id="s2">
+  <div class="logo-strip">
+    <span class="logo-plus">+</span>
+    <span class="logo-name">Positivo Tecnolog<span class="logo-ia">IA</span></span>
+    <span class="slide-tag">AGENDA</span>
+  </div>
+  <div class="body">
+    <h2>O que vamos fazer hoje</h2>
+    <div class="agenda-steps">
+      <div class="astep hl"><span class="atime">0–15 min</span><div class="anum">1</div><div><div class="atitle">Contexto — o que é e o que não é IA</div><div class="adesc">Desmistificar, alinhar expectativas</div></div></div>
+      <div class="astep hl"><span class="atime">15–40 min</span><div class="anum">2</div><div><div class="atitle">Demo ao vivo — Claude na prática</div><div class="adesc">Casos reais do dia a dia desta área</div></div></div>
+      <div class="astep hl"><span class="atime">40–65 min</span><div class="anum">3</div><div><div class="atitle">Brainstorm — oportunidades aqui</div><div class="adesc">Levantamento de ideias com a equipe</div></div></div>
+      <div class="astep hl"><span class="atime">65–85 min</span><div class="anum">4</div><div><div class="atitle">Votação das melhores ideias</div><div class="adesc">Priorização coletiva ao vivo</div></div></div>
+      <div class="astep hl"><span class="atime">85–120 min</span><div class="anum">5</div><div><div class="atitle">Hands-on — você usa agora</div><div class="adesc">Ninguém sai sem ter testado</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 3: O QUE É IA ===== -->
+<div class="slide" id="s3">
+  <div class="logo-strip">
+    <span class="logo-plus">+</span>
+    <span class="logo-name">Positivo Tecnolog<span class="logo-ia">IA</span></span>
+    <span class="slide-tag">CONTEXTO</span>
+  </div>
+  <div class="body">
+    <div class="left">
+      <h2>O que é <span class="ia">IA</span> generativa — de verdade</h2>
+      <p>É um modelo treinado em enormes volumes de texto que aprendeu padrões de linguagem, raciocínio e estrutura. Ele gera respostas a partir do contexto que você fornece — não "pensa" como um humano, mas pode ajudar a amplificar sua capacidade de pensar, escrever e analisar.</p>
+    </div>
+    <div class="vs-grid">
+      <div class="vs-card good">
+        <div class="vs-label good">O que a IA FAZ bem</div>
+        <div class="vs-text">Redigir, resumir, estruturar, analisar padrões, gerar código, transformar dados, criar variações, responder perguntas com contexto fornecido.</div>
+      </div>
+      <div class="vs-card">
+        <div class="vs-label bad">O que a IA NÃO faz</div>
+        <div class="vs-text">Não acessa sistemas internos sozinha. Não toma decisões por você. Não substitui julgamento humano. Não é mágica — é uma ferramenta.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 4: NÃO É MAGIA ===== -->
+<div class="slide" id="s4">
+  <div class="logo-strip">
+    <span class="logo-plus">+</span>
+    <span class="logo-name">Positivo Tecnolog<span class="logo-ia">IA</span></span>
+    <span class="slide-tag">CONTEXTO</span>
+  </div>
+  <div class="body">
+    <h2><span class="ia">IA</span> é uma ferramenta de amplificação</h2>
+    <p class="tagline">Não vai te substituir. Vai amplificar quem sabe usá-la.</p>
+    <div class="pill-row">
+      <span class="pill pill-yes">Amplifica sua capacidade</span>
+      <span class="pill pill-yes">Reduz tarefas repetitivas</span>
+      <span class="pill pill-yes">Libera tempo para o que importa</span>
+      <span class="pill pill-yes">Acelera entregas</span>
+      <span class="pill pill-no">Substitui seu julgamento</span>
+      <span class="pill pill-no">Funciona sem contexto</span>
+      <span class="pill pill-no">É sempre 100% correta</span>
+    </div>
+    <p class="bigquote">"Quem usa <span class="hl">IA</span> bem não perde espaço para a <span class="hl">IA</span> — perde espaço para quem usa <span class="hl">IA</span> melhor do que você."</p>
+  </div>
+</div>
+
+<!-- ===== SLIDE 5: VOCÊS JÁ USAM ===== -->
+<div class="slide" id="s5">
+  <div class="logo-strip">
+    <span class="logo-plus">+</span>
+    <span class="logo-name">Positivo Tecnolog<span class="logo-ia">IA</span></span>
+    <span class="slide-tag">CONTEXTO</span>
+  </div>
+  <div class="body">
+    <h2>Vocês já estão usando <span class="ia">IA</span></h2>
+    <p class="sub">Só que de forma informal, individual, sem estrutura. Vamos mudar isso.</p>
+    <div class="tools-row">
+      <span class="tool-pill">ChatGPT</span>
+      <span class="tool-pill">Copilot</span>
+      <span class="tool-pill">Gemini</span>
+      <span class="tool-pill">Perplexity</span>
+      <span class="tool-pill main">+ Claude</span>
+    </div>
+    <div class="arrow-row">↓</div>
+    <div class="upgrade-box">
+      <p>Agora temos uma ferramenta corporativa oficial. A diferença é contexto, consistência e resultado mensurável — para a equipe, não só para você.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 6: PLANO GRATUITO ===== -->
+<div class="slide" id="s6">
+  <div class="logo-strip">
+    <span class="logo-plus">+</span>
+    <span class="logo-name">Positivo Tecnolog<span class="logo-ia">IA</span></span>
+    <span class="slide-tag">ACESSO</span>
+  </div>
+  <div class="body">
+    <div class="left">
+      <h2>Comece hoje com o plano <span class="ia" style="font-size:34px;">gratuito</span></h2>
+      <p>Não precisa esperar. Não precisa de aprovação. Crie sua conta em claude.ai agora mesmo e comece a explorar. A empresa vai acompanhar quem está usando ativamente — e liberar licenças pagas para quem se destacar.</p>
+    </div>
+    <div>
+      <div class="free-card">
+        <div class="free-title">O que o plano gratuito já oferece</div>
+        <div class="free-item"><div class="free-dot"></div><div class="free-text">Claude Sonnet — o modelo mais usado, rápido e capaz</div></div>
+        <div class="free-item"><div class="free-dot"></div><div class="free-text">Conversa longa com contexto de documentos</div></div>
+        <div class="free-item"><div class="free-dot"></div><div class="free-text">Geração de artefatos: HTML, código, tabelas, relatórios</div></div>
+        <div class="free-item"><div class="free-dot"></div><div class="free-text">Pesquisa na web integrada</div></div>
+        <div class="free-item"><div class="free-dot"></div><div class="free-text">Upload de arquivos e análise de documentos</div></div>
+      </div>
+      <div class="paid-box">
+        <div class="paid-title">Próximo passo — licença corporativa</div>
+        <div class="paid-text">Uso ilimitado, memória entre sessões, acesso a Claude Opus e integrações com sistemas internos.</div>
+      </div>
+      <div class="free-card" style="margin-top:14px;">
+        <div class="free-title">Dicas para render mais no Claude gratuito</div>
+        <div class="free-item"><div class="free-dot"></div><div class="free-text"><strong>A1.</strong> Prefira <strong>Sonnet</strong> no dia a dia e use <strong>Opus</strong> só quando precisar de raciocínio superior.</div></div>
+        <div class="free-item"><div class="free-dot"></div><div class="free-text"><strong>A2.</strong> Se aparecer <strong>1M</strong> ou <strong>extended</strong>, volte para o contexto padrão <strong>200K</strong>.</div></div>
+        <div class="free-item"><div class="free-dot"></div><div class="free-text"><strong>A3.</strong> Abra conversas novas por tarefa para evitar histórico longo e caro.</div></div>
+        <div class="free-item"><div class="free-dot"></div><div class="free-text"><strong>A4.</strong> Seja específico no prompt (arquivo, linha, seção, objetivo e formato de resposta).</div></div>
+        <div class="free-item"><div class="free-dot"></div><div class="free-text"><strong>A5.</strong> Agrupe pedidos em menos prompts (1 prompt bem estruturado vale mais que 3 soltos).</div></div>
+        <div class="free-item"><div class="free-dot"></div><div class="free-text"><strong>A6.</strong> Pré-processe documentos fora do Claude (ex.: PDF → texto) antes de subir.</div></div>
+        <div class="free-item"><div class="free-dot"></div><div class="free-text"><strong>A7.</strong> Teste tarefas pesadas fora do pico (dias úteis, 5h-11h PT costuma ser mais disputado).</div></div>
+        <div class="free-item"><div class="free-dot"></div><div class="free-text"><strong>A8.</strong> Truque da janela de 5h: envie a 1ª mensagem antes e inicie o bloco principal depois.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 7: DEMO ===== -->
+<div class="slide" id="s7">
+  <div class="logo-strip">
+    <span class="logo-plus">+</span>
+    <span class="logo-name">Positivo Tecnolog<span class="logo-ia">IA</span></span>
+    <span class="slide-tag">DEMO AO VIVO</span>
+  </div>
+  <div class="body">
+    <h2>Vamos ver funcionando — ao vivo</h2>
+    <p class="sub">Exemplos adaptados para o dia a dia desta área</p>
+    <div class="demo-grid">
+      <div class="demo-card">
+        <h3>Claude — uso direto</h3>
+        <div class="demo-item">Resumir e-mail longo com ação recomendada</div>
+        <div class="demo-item">Draft de proposta a partir de bullet points</div>
+        <div class="demo-item">Formatar e analisar tabela colada</div>
+        <div class="demo-item">Montar pauta de reunião de tópicos soltos</div>
+        <div class="demo-item">Gerar calculadora HTML ao vivo</div>
+      </div>
+      <div class="demo-card">
+        <h3>Copilot Studio — agentes</h3>
+        <div class="demo-item">Consultar PDF de processo via chat</div>
+        <div class="demo-item">Tributônio — agente tributário da Positivo</div>
+        <div class="demo-item">Bot de onboarding para novos colaboradores</div>
+        <div class="demo-item">Consulta a planilhas por linguagem natural</div>
+      </div>
+      <div class="demo-card">
+        <h3>Claude Code — perfis técnicos</h3>
+        <div class="demo-item">App de pricing em React em minutos</div>
+        <div class="demo-item">Automação de planilha com Python</div>
+        <div class="demo-item">Dashboard de metas interativo</div>
+        <div class="demo-item">Fluxo n8n: WhatsApp → Excel automático</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 8: BRAINSTORM ===== -->
+<div class="slide" id="s8">
+  <div class="logo-strip">
+    <span class="logo-plus">+</span>
+    <span class="logo-name">Positivo Tecnolog<span class="logo-ia">IA</span></span>
+    <span class="slide-tag">BRAINSTORM</span>
+  </div>
+  <div class="body">
+    <h2>Agora é a vez de vocês</h2>
+    <p class="sub">Três perguntas para encontrar oportunidades reais nesta área</p>
+    <div class="qs-stack">
+      <div class="q-card"><div class="q-num">1</div><div class="q-text">Qual tarefa repetitiva mais toma o seu tempo hoje — toda semana, sem falta?</div></div>
+      <div class="q-card"><div class="q-num">2</div><div class="q-text">Onde existe mais retrabalho, inconsistência ou erro humano no processo da área?</div></div>
+      <div class="q-card"><div class="q-num">3</div><div class="q-text">Se você pudesse automatizar uma coisa amanhã, o que seria — e por quê?</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 9: VOTAÇÃO ===== -->
+<div class="slide" id="s9">
+  <div class="logo-strip">
+    <span class="logo-plus">+</span>
+    <span class="logo-name">Positivo Tecnolog<span class="logo-ia">IA</span></span>
+    <span class="slide-tag">VOTAÇÃO</span>
+  </div>
+  <div class="body">
+    <div class="left">
+      <h2>Vamos votar nas melhores ideias</h2>
+      <p>Cada pessoa vota nas ideias que considera mais impactantes para a equipe. As mais votadas sobem no ranking — e vamos sair daqui com 1 ou 2 ideias eleitas para desenvolver.</p>
+    </div>
+    <div class="vote-steps">
+      <div class="vstep"><div class="vnum">1</div><div><div class="vtitle">Revise as ideias cadastradas</div><div class="vdesc">Banco de ideias aberto na tela — todas as sugestões do brainstorm</div></div></div>
+      <div class="vstep"><div class="vnum">2</div><div><div class="vtitle">Vote nas que te parecem mais impactantes</div><div class="vdesc">Critério: quanto tempo economizaria por semana?</div></div></div>
+      <div class="vstep"><div class="vnum">3</div><div><div class="vtitle">Triagem ao vivo</div><div class="vdesc">Rafael define ferramenta: Claude, Copilot Studio ou n8n + API</div></div></div>
+      <div class="vstep"><div class="vnum">4</div><div><div class="vtitle">Ideia eleita — responsável definido</div><div class="vdesc">Quem vai liderar o desenvolvimento autônomo</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 10: HANDS-ON ===== -->
+<div class="slide" id="s10">
+  <div class="logo-strip">
+    <span class="logo-plus">+</span>
+    <span class="logo-name">Positivo Tecnolog<span class="logo-ia">IA</span></span>
+    <span class="slide-tag">HANDS-ON</span>
+  </div>
+  <div class="body">
+    <h2>Agora você usa — ao vivo</h2>
+    <p class="sub">Abra o Claude.ai no seu computador ou celular. Escolha uma tarefa real do seu trabalho e vamos testar juntos agora.</p>
+    <div class="ho-row">
+      <div class="ho-card"><div class="ho-label">Passo 1</div><div class="ho-text">Acesse claude.ai e crie sua conta gratuita</div></div>
+      <div class="ho-card"><div class="ho-label">Passo 2</div><div class="ho-text">Escolha uma tarefa que você faz hoje manualmente</div></div>
+      <div class="ho-card"><div class="ho-label">Passo 3</div><div class="ho-text">Descreva a tarefa e peça ajuda ao Claude</div></div>
+      <div class="ho-card"><div class="ho-label">Passo 4</div><div class="ho-text">Itere — refine o prompt até o resultado ser útil</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 11: PRÓXIMOS PASSOS ===== -->
+<div class="slide" id="s11">
+  <div class="logo-strip">
+    <span class="logo-plus">+</span>
+    <span class="logo-name">Positivo Tecnolog<span class="logo-ia">IA</span></span>
+    <span class="slide-tag">PRÓXIMOS PASSOS</span>
+  </div>
+  <div class="body">
+    <h2>O que acontece depois de hoje</h2>
+    <p class="sub">Um plano claro para transformar o workshop em resultado real</p>
+    <div class="ps-grid">
+      <div class="ps-card"><div class="ps-step">Esta semana</div><div class="ps-title">Use o plano gratuito</div><div class="ps-desc">Teste o Claude com pelo menos 3 tarefas reais do seu trabalho. Anote o que funcionou e o que não funcionou.</div></div>
+      <div class="ps-card"><div class="ps-step">30 dias</div><div class="ps-title">Desenvolva a ideia eleita</div><div class="ps-desc">O responsável avança com a ideia votada. Rafael apoia com orientação técnica e direcionamento de ferramenta.</div></div>
+      <div class="ps-card"><div class="ps-step">60-90 dias</div><div class="ps-title">Case com ROI</div><div class="ps-desc">Documentamos o resultado: horas economizadas, impacto no processo, equivalente financeiro. Base para licenças pagas.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 12: ENCERRAMENTO ===== -->
+<div class="slide" id="s12">
+  <div class="logo-strip">
+    <span class="logo-plus">+</span>
+    <span class="logo-name">Positivo Tecnolog<span class="logo-ia">IA</span></span>
+    <span class="slide-tag">VP DE NEGÓCIOS</span>
+  </div>
+  <div class="body">
+    <div class="eyebrow">A inovação que você vai viver</div>
+    <div class="close-line"></div>
+    <h1>Dúvidas?<br>Vamos conversar.</h1>
+    <p class="sub">O banco de ideias fica aberto. Qualquer nova ideia que surgir depois pode ser cadastrada — e vai entrar nas próximas rodadas de desenvolvimento.</p>
+    <p class="contact-row">Rafael Ceschim · <span>Coordenador de Implementações IA · VP de Negócios</span></p>
+  </div>
+</div>
+
+</div><!-- /deck -->
+
+<!-- NAV -->
+<div class="nav" id="nav"></div>
+
+<script>
+var slides=document.querySelectorAll('.slide');
+var total=slides.length;
+var cur=0;
+
+function buildNav(){
+  var nav=document.getElementById('nav');
+  var prev=document.createElement('button');
+  prev.className='nav-btn';prev.textContent='← Anterior';prev.onclick=function(){go(cur-1);};
+  nav.appendChild(prev);
+  for(var i=0;i<total;i++){
+    var d=document.createElement('div');
+    d.className='nav-dot'+(i===0?' on':'');
+    d.setAttribute('data-i',i);
+    d.onclick=(function(idx){return function(){go(idx);};})(i);
+    nav.appendChild(d);
+  }
+  var ctr=document.createElement('div');
+  ctr.className='slide-counter';ctr.id='ctr';ctr.textContent='1/'+total;
+  nav.appendChild(ctr);
+  var next=document.createElement('button');
+  next.className='nav-btn';next.textContent='Próximo →';next.onclick=function(){go(cur+1);};
+  nav.appendChild(next);
+}
+
+function go(n){
+  if(n<0||n>=total)return;
+  slides[cur].classList.remove('active');
+  document.querySelectorAll('.nav-dot')[cur].classList.remove('on');
+  cur=n;
+  slides[cur].classList.add('active');
+  document.querySelectorAll('.nav-dot')[cur].classList.add('on');
+  document.getElementById('ctr').textContent=(cur+1)+'/'+total;
+}
+
+document.addEventListener('keydown',function(e){
+  if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' ')go(cur+1);
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp')go(cur-1);
+  if(e.key==='f'||e.key==='F'){
+    if(!document.fullscreenElement)document.documentElement.requestFullscreen();
+    else document.exitFullscreen();
+  }
+});
+
+buildNav();
+</script>
+</body>
+</html>
